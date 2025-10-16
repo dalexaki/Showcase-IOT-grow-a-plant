@@ -1,0 +1,29 @@
+{
+  "name": "Grow-a-Plant IoT Controller",
+  "description": "Simple plant monitoring system that reads soil moisture and temperature, calculates watering needs and plant health",
+  "broker": {
+    "host": "localhost",
+    "port": 1883
+  },
+  "message_flows": [
+    {
+      "type": "plant",
+      "name": "plant_monitor",
+      "input": {
+        "soil_moisture_topic": "sensors/soil_moisture",
+        "temperature_topic": "sensors/temperature"
+      },
+      "output": {
+        "watering_hours_topic": "plant/watering_hours",
+        "currently_watering_topic": "plant/currently_watering",
+        "plant_health_topic": "plant/health"
+      },
+      "thresholds": {
+        "moisture_low": 58,
+        "moisture_optimal": 70,
+        "temp_low": 18,
+        "temp_high": 28
+      }
+    }
+  ]
+}
