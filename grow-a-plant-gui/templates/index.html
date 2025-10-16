@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 Plant Health Monitor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌱 Smart Plant Health Monitor</h1>
+            <p class="subtitle">IoT Dashboard for Real-time Plant Monitoring</p>
+        </header>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="control-card">
+                <h2>🔌 MQTT Broker</h2>
+                <button id="broker-btn" class="btn btn-primary" onclick="toggleBroker()">
+                    Start MQTT Broker
+                </button>
+                <div id="broker-status" class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Stopped</span>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h2>📊 Sensor Simulation</h2>
+                <button id="simulation-btn" class="btn btn-success" onclick="toggleSimulation()">
+                    Start Simulation
+                </button>
+                <div id="simulation-status" class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Stopped</span>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h2>🌿 Plant Controller</h2>
+                <button id="controller-btn" class="btn btn-success" onclick="toggleController()">
+                    Start Controller
+                </button>
+                <div id="controller-status" class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Stopped</span>
+                </div>
+            </div>
+
+            <div class="control-card water-card">
+                <h2>💧 Water Plant</h2>
+                <button id="water-btn" class="btn btn-water" onclick="waterPlant()">
+                    💧 Water the Plant
+                </button>
+                <div class="water-info">
+                    <small>Resets moisture to 70%</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration Panel -->
+        <div class="config-section">
+            <h2>⚙️ Threshold Configuration</h2>
+            <div class="config-form">
+                <div class="config-row">
+                    <label>💧 Moisture Low (%)</label>
+                    <input type="number" id="moisture-low" min="0" max="100" value="30">
+                </div>
+                <div class="config-row">
+                    <label>💧 Moisture Optimal (%)</label>
+                    <input type="number" id="moisture-optimal" min="0" max="100" value="60">
+                </div>
+                <div class="config-row">
+                    <label>🌡️ Temperature Low (°C)</label>
+                    <input type="number" id="temp-low" min="0" max="50" value="18">
+                </div>
+                <div class="config-row">
+                    <label>🌡️ Temperature High (°C)</label>
+                    <input type="number" id="temp-high" min="0" max="50" value="28">
+                </div>
+                <button class="btn btn-primary" onclick="loadConfig()">📥 Load Current</button>
+                <button class="btn btn-success" onclick="saveConfig()">💾 Save Configuration</button>
+            </div>
+        </div>
+
+        <!-- Plant Status Box -->
+        <div class="plant-box" id="plant-box">
+            <div class="plant-emoji">🌿</div>
+            <h3>Plant Status</h3>
+            <div id="plant-status-text" class="plant-status">Waiting for data...</div>
+        </div>
+
+        <!-- Metrics Dashboard -->
+        <div class="metrics-dashboard">
+            <div class="metric-card">
+                <div class="metric-icon">💧</div>
+                <div class="metric-content">
+                    <h3>Soil Moisture</h3>
+                    <div class="metric-value" id="moisture-value">0%</div>
+                    <div class="metric-bar">
+                        <div class="metric-bar-fill" id="moisture-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">🌡️</div>
+                <div class="metric-content">
+                    <h3>Temperature</h3>
+                    <div class="metric-value" id="temperature-value">0°C</div>
+                    <div class="metric-bar">
+                        <div class="metric-bar-fill" id="temperature-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">⏰</div>
+                <div class="metric-content">
+                    <h3>Watering In</h3>
+                    <div class="metric-value" id="watering-hours-value">0 hours</div>
+                    <div class="metric-bar">
+                        <div class="metric-bar-fill" id="watering-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-icon">💚</div>
+                <div class="metric-content">
+                    <h3>Plant Health</h3>
+                    <div class="metric-value" id="health-value">0%</div>
+                    <div class="metric-bar">
+                        <div class="metric-bar-fill health-bar" id="health-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metric-card" id="faucet-card">
+                <div class="metric-icon">🚰</div>
+                <div class="metric-content">
+                    <h3>Faucet Status</h3>
+                    <div class="metric-value" id="faucet-value">OFF</div>
+                    <div class="faucet-status-text" id="faucet-status-text">Not watering</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerts Section -->
+        <div class="alerts-section">
+            <h2>🔔 System Alerts</h2>
+            <div id="alerts-container" class="alerts-container">
+                <div class="alert alert-info">
+                    <strong>ℹ️ System Ready</strong><br>
+                    Start the MQTT broker and simulation to begin monitoring.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
