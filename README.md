@@ -983,4 +983,57 @@ This project demonstrates:
 
 ## 🔗 Resources & Documentation
 
-### Technologies Use
+### Technologies Used
+
+**Core Frameworks & Libraries:**
+- [Flask](https://flask.palletsprojects.com/) - Python web framework
+- [Flask-SocketIO](https://flask-socketio.readthedocs.io/) - WebSocket support for Flask
+- [Paho MQTT](https://www.eclipse.org/paho/index.php?page=clients/python/index.php) - Python MQTT client library
+
+**IoT & Messaging:**
+- [Eclipse Mosquitto](https://mosquitto.org/) - Open-source MQTT broker
+- [MQTT Protocol](https://mqtt.org/) - Lightweight messaging protocol for IoT
+
+**Development Tools:**
+- [Docker](https://www.docker.com/) - Container platform
+- [Python](https://www.python.org/) - Programming language (3.10+)
+
+### Useful Links
+
+- 📖 [MQTT Beginner's Guide](https://www.hivemq.com/mqtt-essentials/)
+- 🎓 [IoT Architecture Patterns](https://docs.aws.amazon.com/iot/latest/developerguide/iot-architecture.html)
+- 🔧 [Flask Tutorial](https://flask.palletsprojects.com/en/2.3.x/tutorial/)
+- 📚 [Python Asyncio Documentation](https://docs.python.org/3/library/asyncio.html)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👤 Author
+
+**Your Name**
+- Portfolio: [your-website.com](https://your-website.com)
+- LinkedIn: [your-linkedin](https://linkedin.com/in/your-profile)
+- GitHub: [@yourusername](https://github.com/yourusername)
+
+---
+
+## 🌟 Acknowledgments
+
+- Eclipse Mosquitto team for the excellent MQTT broker
+- Flask and SocketIO developers for the web framework
+- The open-source community for inspiration and tools
+
+---
+
+<div align="center">
+
+**⭐ If you found this project helpful, please consider giving it a star!**
+
+Made with ❤️ for IoT enthusiasts and job recruiters
+
+</div>
