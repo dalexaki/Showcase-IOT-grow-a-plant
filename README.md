@@ -1015,10 +1015,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👤 Author
 
-**Your Name**
-- Portfolio: [your-website.com](https://your-website.com)
-- LinkedIn: [your-linkedin](https://linkedin.com/in/your-profile)
-- GitHub: [@yourusername](https://github.com/yourusername)
+**Dimitris Alexakis**
+
+For questions, collaboration, or job opportunities, please reach out via:
+- GitHub: [@dalexaki](https://github.com/dalexaki)
+- LinkedIn: [Dimitris Alexakis](https://www.linkedin.com/in/dimitris-alexakis-803b48230/)
+- Email: [de.alexaki@gmail.com](mailto:de.alexaki@gmail.com)
 
 ---
 
